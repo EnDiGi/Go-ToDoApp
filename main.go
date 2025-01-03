@@ -6,11 +6,15 @@ import (
 	"strings"
 )
 
+const fileName string = "tasks.txt"
+
 
 var functions []string = []string{"show", "add", "complete", "delete", "quit"} 
 
 var tasks []string = []string{}
 var completedTasks []string = []string{}
+
+
 
 func getInstruction() (string, string) {
 
@@ -24,7 +28,7 @@ func getInstruction() (string, string) {
 	fmt.Println("Here are the available functions")	
 	fmt.Println("1. show")
 	fmt.Println("2. add newTaskName")
-	fmt.Println("3. complete taskName")
+	fmt.Println("3. complete taskName or --all")
 	fmt.Println("4. delete taskName or --all or --completed")
 	fmt.Println("5. quit")
 
@@ -95,6 +99,12 @@ func add(newTaskName string){
 }
 
 func complete(task string){
+	if task == "--all"{
+		completedTasks = append(completedTasks, tasks...)
+		tasks = tasks[:0]
+		return
+	}
+
 	var isTask bool;
 
 	for i := 0; i < len(tasks); i++{
